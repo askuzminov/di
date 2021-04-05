@@ -179,11 +179,11 @@ di.rebuild(); // reinit all
 
 ## Override inject in tests
 
-````typescript
+```typescript
 class SomeTest {
   a = inject(A, ATestClass); // replace A by ATestClass
 }
-
+```
 
 ## Legacy browser (not Proxy)
 
@@ -201,7 +201,7 @@ class B {
     return this.a().count; // get Function, not Proxy
   }
 }
-````
+```
 
 Note: not save result this.a() in variable, if using runtime reloading.
 

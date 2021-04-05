@@ -17,6 +17,7 @@
     "skipLibCheck": true,
     "preserveSymlinks": false,
     "sourceMap": true,
+    "importHelpers": true,
     "outDir": "./dist/cjs/"
   },
   "include": ["src", "tests"]

@@ -53,6 +53,9 @@
     "lint": "npm run eslint",
     "release": "simple-release"
   },
+  "dependencies": {
+    "tslib": "^2.1.0"
+  },
   "devDependencies": {
     "@askuzminov/simple-release": "~1.0.8",
     "@types/jest": "^26.0.22",

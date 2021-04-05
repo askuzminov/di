@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
-import { ErrorCyclic, ErrorRun } from './errors';
+import { ErrorCyclic, ErrorDiNotInited, ErrorNotDefined, ErrorRun } from './errors';
 import { AfterStore, Constructor, Store } from './types';
 
 function isString(value: unknown): value is string {
@@ -13,11 +13,11 @@ let current: DI<Constructor> | undefined;
 // Proxy
 export function inject<K extends Constructor, Z extends K>(original?: K, alter?: Z): AfterStore<Z> {
   if (!original) {
-    throw Error('Class not defined');
+    throw new ErrorNotDefined();
   }
 
   if (!current) {
-    throw Error('DI not inited');
+    throw new ErrorDiNotInited();
   }
 
   const context = current;
@@ -38,11 +38,11 @@ export function inject<K extends Constructor, Z extends K>(original?: K, alter?:
 // Classic
 export function injectFn<K extends Constructor, Z extends K>(original?: K, alter?: Z): () => AfterStore<Z> {
   if (!original) {
-    throw Error('Class not defined');
+    throw new ErrorNotDefined();
   }
 
   if (!current) {
-    throw Error('DI not inited');
+    throw new ErrorDiNotInited();
   }
 
   const context = current;
@@ -53,11 +53,11 @@ export function injectFn<K extends Constructor, Z extends K>(original?: K, alter
 // transient
 export function transient<K extends Constructor>(original?: K): AfterStore<K> {
   if (!original) {
-    throw Error('Class not defined');
+    throw new ErrorNotDefined();
   }
 
   if (!current) {
-    throw Error('DI not inited');
+    throw new ErrorDiNotInited();
   }
 
   return current.transient(original);
@@ -193,7 +193,7 @@ export class DI<T extends Constructor, List extends Record<string, T> = Record<s
 
     if (!store) {
       if (!this.inited) {
-        throw Error('DI not inited');
+        throw new ErrorDiNotInited();
       } else if (this.ready) {
         throw new Error(`Module "${isString(original) ? original : (original as T).name}" not found`);
       }
