@@ -201,6 +201,11 @@ class B {
     return this.a().count; // get Function, not Proxy
   }
 }
+
+const di = new DI();
+di.set(A).set(B).init();
+
+const b = di.getFn(B); // get Function, not Proxy
 ```
 
 Note: not save result this.a() in variable, if using runtime reloading.
